@@ -9,22 +9,22 @@ const server = http.createServer((req, res) => {
   if (url === '/') {
     fs.readFile('index.html', (err, data) => {
       if (err) {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Não encontrado');
       } else {
-        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(data);
       }
     });
   } else if (url === '/about') {
     fs.readFile('about.html', (err, data) => {
       if (err) {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Não encontrado');
       } else {
-        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(data);
-        
+
       }
     });
   } else if (url === '/post') {
@@ -35,11 +35,11 @@ const server = http.createServer((req, res) => {
       });
       req.on('end', () => {
         console.log('Recebi uma requisição POST com o corpo:', body);
-        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end('Recebi sua requisição POST!');
       });
     } else {
-      res.writeHead(405, {'Content-Type': 'text/plain'});
+      res.writeHead(405, { 'Content-Type': 'text/plain' });
       res.end('Método não permitido');
     }
   } else if (url === '/upload') {
@@ -50,20 +50,20 @@ const server = http.createServer((req, res) => {
       form.parse(req, (err, fields, files) => {
         if (err) {
           console.error('Erro ao salvar arquivo:', err);
-          res.writeHead(500, {'Content-Type': 'text/plain'});
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
           res.end('Erro ao salvar arquivo');
         } else if (!files.file) {
-          res.writeHead(400, {'Content-Type': 'text/plain'});
+          res.writeHead(400, { 'Content-Type': 'text/plain' });
           res.end('Nenhum arquivo foi enviado');
         } else {
           console.log('Arquivo salvo com sucesso!');
-          res.writeHead(200, {'Content-Type': 'text/plain'});
+          res.writeHead(200, { 'Content-Type': 'text/plain' });
           res.end('Arquivo salvo com sucesso!');
         }
       });
-      
+
     } else if (req.method === 'GET') {
-      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(`
         <html>
           <body>
@@ -75,12 +75,12 @@ const server = http.createServer((req, res) => {
         </html>
       `);
     } else {
-      res.writeHead(405, {'Content-Type': 'text/plain'});
+      res.writeHead(405, { 'Content-Type': 'text/plain' });
       res.end('Método não permitido');
     }
   } else {
     // Rota 404
-    res.writeHead(404, {'Content-Type': 'text/html'});
+    res.writeHead(404, { 'Content-Type': 'text/html' });
     res.end(`
       <html lang="pt-br">
         <head>
