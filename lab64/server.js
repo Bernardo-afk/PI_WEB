@@ -82,17 +82,52 @@ const server = http.createServer((req, res) => {
     // Rota 404
     res.writeHead(404, { 'Content-Type': 'text/html' });
     res.end(`
-      <html lang="pt-br">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Erro 404</title>
-        </head>
-        <body>
-          <h1>Erro 404: Página não encontrada</h1>
-          <p>A página que você está procurando não foi encontrada.</p>
-        </body>
-      </html>
+
+
+
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro 404</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+          background: linear-gradient(to bottom, #007bff, #ffffff);
+        text-align: center;
+                margin: 0 auto;
+        display: flex;
+        flex-direction:column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; 
+      }
+      
+      h1 {
+        color: #333;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+      
+      p {
+        color: #666;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Erro 404: Página não encontrada</h1>
+    <p>A página que você está procurando não foi encontrada.</p>
+  </body>
+</html>
+
+
+
+
+
+
+
     `);
   }
 });
