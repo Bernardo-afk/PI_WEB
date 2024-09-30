@@ -1,47 +1,44 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 
 const app = express();
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
-  });
-  
+});
 
+app.post('/enviar-email', (req, res) => {
+    const { nome, email, mensagem } = req.body;
 
-
-app.post('/submit', (req, res) => {
-  const { nome, email, mensagem } = req.body;
-  const formData = {
-    nome,
-    email,
-    mensagem,
-  };
-
-  const formUrl = 'https://formspree.io/f/xqkjnqkj';
-  const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  };
-
-  fetch(formUrl, {
-    method: 'POST',
-    headers,
-    body: Object.keys(formData).map(key => `${key}=${formData[key]}`).join('&'),
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      res.send('Formulário enviado com sucesso!');
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).send('Erro ao enviar formulário');
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'snowkolarovin100@gmail.com',
+            pass: 'Snow9060@'
+        }
     });
+
+    let mailOptions = {
+        from: 'snowkolarovin100@gmail.com',
+        to: 'destinatario-email@example.com',
+        subject: 'Assunto do email',
+        text: `Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email enviado: ' + info.response);
+        }
+    });
+
+    res.send('Email enviado com sucesso!');
 });
 
 app.listen(3000, () => {
-  console.log('Servidor iniciado na porta 3000');
+    console.log('Servidor rodando na porta 3000');
 });
