@@ -15,15 +15,18 @@ app.post('/enviar-email', (req, res) => {
 
     let transporter = nodemailer.createTransport({
         service: 'gmail',
+        host:"smtp.gmail.com",
+        port:587,
+        secure: true,
         auth: {
-            user: 'snowkolarovin100@gmail.com',
+            user: 'bemehene@gmail.com',
             pass: 'Snow9060@'
         }
     });
 
     let mailOptions = {
-        from: 'snowkolarovin100@gmail.com',
-        to: 'destinatario-email@example.com',
+        from: 'bemehene@gmail.com',
+        to: 'bernardoatadia0609@gmail.com',
         subject: 'Assunto do email',
         text: `Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`
     };
