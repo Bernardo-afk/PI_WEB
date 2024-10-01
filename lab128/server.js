@@ -1,37 +1,25 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
-const nodemailer = require('nodemailer');
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+// Middleware para processar dados do formulário
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.example.com',
-    port: 587,
-    secure: false, // or 'STARTTLS'
-    auth: {
-        user: 'seu_usuario_smtp',
-        pass: 'sua_senha_smtp'
-    }
+// Rota para servir o HTML do formulário
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
 });
 
-app.post('/send-email', (req, res) => {
+// Rota para receber dados do formulário
+app.post('/submit-form', (req, res) => {
     const { name, email, message } = req.body;
-
-    const mailOptions = {
-        from: 'seu_usuario_smtp',
-        to: email,
-        subject: `Mensagem de contato de ${name}`,
-        text: message
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return res.status(500).json({ message: 'Erro ao enviar email' });
-        }
-        res.json({ message: 'Email enviado com sucesso!' });
-    });
+    console.log(`Nome: ${name}, Email: ${email}, Mensagem: ${message}`);
+    res.send('Formulário enviado com sucesso!');
 });
 
-app.listen(3000, () => {
-    console.log('Servidor iniciado na porta 3000');
+// Inicializa o servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });

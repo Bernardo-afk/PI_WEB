@@ -3,37 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato</title>
+    <title>Formulário de Contato</title>
     <style>
-        /* Add some basic styling to make it look decent */
         body {
+            background-image: url('https://img.wallpapic-br.com/i2567-241-325/thumb/carros-porsche-super-carro-cayman-imagem-de-fundo.jpg');
             font-family: Arial, sans-serif;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #333;
+        
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            max-width: 400px;
-            margin: 40px auto;
+            background-color: white;
             padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        input, textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Contato</h2>
-        <form id="contact-form">
+        <h1>Contato</h1>
+        <form action="https://formspree.io/f/manwrkya" method="POST">
             <label for="name">Nome:</label>
-            <input type="text" id="name" name="name"><br><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email"><br><br>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            
             <label for="message">Mensagem:</label>
-            <textarea id="message" name="message"></textarea><br><br>
-            <button id="submit-btn">Enviar</button>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            
+            <input type="submit" value="Enviar">
         </form>
+        
     </div>
-
-    <script src="script.js"></script>
- 
 </body>
 </html>
