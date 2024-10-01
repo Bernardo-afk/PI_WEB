@@ -1,47 +1,37 @@
 const express = require('express');
+const app = express();
 const nodemailer = require('nodemailer');
 
-const app = express();
+app.use(express.json());
 
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+const transporter = nodemailer.createTransport({
+    host: 'smtp.example.com',
+    port: 587,
+    secure: false, // or 'STARTTLS'
+    auth: {
+        user: 'seu_usuario_smtp',
+        pass: 'sua_senha_smtp'
+    }
 });
 
-app.post('/enviar-email', (req, res) => {
-    const { nome, email, mensagem } = req.body;
+app.post('/send-email', (req, res) => {
+    const { name, email, message } = req.body;
 
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        host:"smtp.gmail.com",
-        port:587,
-        secure: true,
-        auth: {
-            user: 'bemehene@gmail.com',
-            pass: 'Snow9060@'
-        }
-    });
-
-    let mailOptions = {
-        from: 'bemehene@gmail.com',
-        to: 'bernardoatadia0609@gmail.com',
-        subject: 'Assunto do email',
-        text: `Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`
+    const mailOptions = {
+        from: 'seu_usuario_smtp',
+        to: email,
+        subject: `Mensagem de contato de ${name}`,
+        text: message
     };
 
-    transporter.sendMail(mailOptions, function(error, info){
+    transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log(error);
-        } else {
-            console.log('Email enviado: ' + info.response);
+            return res.status(500).json({ message: 'Erro ao enviar email' });
         }
+        res.json({ message: 'Email enviado com sucesso!' });
     });
-
-    res.send('Email enviado com sucesso!');
 });
 
 app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
+    console.log('Servidor iniciado na porta 3000');
 });
