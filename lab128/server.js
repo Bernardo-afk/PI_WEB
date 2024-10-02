@@ -13,8 +13,8 @@ app.get('/', (req, res) => {
 });
 
 // Rota para receber dados do formulário
-app.post('/submit-form', (req, res) => {
-    const { name, email, message } = req.body;
+app.post('/submit-form', (req, res) => {           // método post 
+    const { name, email, message } = req.body;                              // lable 
     console.log(`Nome: ${name}, Email: ${email}, Mensagem: ${message}`);
     res.send('Formulário enviado com sucesso!');
 });
