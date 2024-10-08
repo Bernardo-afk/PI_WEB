@@ -10,10 +10,10 @@ Integrantes :
 
                 - Guilhermo Amadio : Participação na elaboração do server.js 
 
-                - Bernardo Atadia : participação na estruturação do css ( h1,h4, .containers )
+                - Bernardo Atadia : participação na elaboração do envio e recebmento dos email
 
                 - Nicolas Laredo : participação na Idealização e prática da estrutura do html 
 
-                - Enzo Tenani : Procura do host de envio do email ( formspree)
+                - Enzo Tenani : Procura do host de recebmento do email ( formspree)
 
                 

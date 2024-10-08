@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação</title>
+</head>
+<body>
+    <h1>Verificação de Código</h1>
+    <form action="/verify" method="POST">
+        <input type="text" name="code" placeholder="Digite o código de verificação" required>
+        <input type="hidden" name="name" id="name">
+        <input type="hidden" name="email" id="email">
+        <input type="hidden" name="message" id="message">
+        <button type="submit">Verificar</button>
+    </form>
+
+    <script>
+        // Armazena os dados do formulário no localStorage
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('name').value = params.get('name');
+        document.getElementById('email').value = params.get('email');
+        document.getElementById('message').value = params.get('message');
+    </script>
+</body>
+</html>
