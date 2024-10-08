@@ -61,7 +61,8 @@ app.post('/verify', (req, res) => {
         })
         .then(response => {
             if (response.ok) {
-                res.send('Formulário enviado com sucesso!');
+                // Redireciona para a página "correto.html" se o envio para o Formspree for bem-sucedido
+                res.redirect('/correto.html');
             } else {
                 console.error("Erro ao enviar para o Formspree:", response.statusText); // Log do erro
                 res.status(500).send('Erro ao enviar o formulário.');
@@ -72,7 +73,7 @@ app.post('/verify', (req, res) => {
             res.status(500).send('Erro ao enviar o formulário.');
         });
     } else {
-        res.send('Código incorreto.');
+        res.redirect('/incorreto.html');
     }
 });
 
