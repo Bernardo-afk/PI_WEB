@@ -21,10 +21,20 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+// Função para gerar um código de verificação alfanumérico de 6 caracteres
+const generateVerificationCode = (length) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let code = '';
+    for (let i = 0; i < length; i++) {
+        code += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return code;
+};
+
 // Rota para enviar o email com o código de verificação
 app.post('/send-verification', (req, res) => {
     const { name, email, message } = req.body;
-    verificationCode = Math.floor(100000 + Math.random() * 900000).toString(); // Gera um código de 6 dígitos
+    verificationCode = generateVerificationCode(6); // Gera um código de 6 caracteres
 
     const mailOptions = {
         from: process.env.EMAIL_USER,
@@ -39,7 +49,7 @@ app.post('/send-verification', (req, res) => {
             return res.status(500).send('Erro ao enviar o email.');
         }
         console.log('Email enviado: ' + info.response); // Log de sucesso
-        // Redireciona para a página de verificação
+        // Redireciona para a página de verificação com os parâmetros de nome, email e mensagem
         res.redirect(`/verify.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&message=${encodeURIComponent(message)}`);
     });
 });
@@ -73,6 +83,7 @@ app.post('/verify', (req, res) => {
             res.status(500).send('Erro ao enviar o formulário.');
         });
     } else {
+        // Redireciona para a página "incorreto.html" se o código estiver errado
         res.redirect('/incorreto.html');
     }
 });
